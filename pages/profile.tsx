@@ -1,10 +1,23 @@
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 export default function Profile() {
-  const { user, isLoading } = useUser();
+  const { user, error, isLoading } = useUser();
   return (
     <>
-      <h1 className='text-3xl font-bold underline'>{user?.name}</h1>
+      {isLoading && <p>Loading profile...</p>}
+      {error && (
+        <>
+          <h4>Error</h4>
+          <pre>{error.message}</pre>
+        </>
+      )}
+      {user && (
+        <>
+          <h4>Profile</h4>
+          <pre>{JSON.stringify(user, null, 2)}</pre>
+        </>
+      )}{' '}
     </>
   );
 }
+export const getServerSideProps = withPageAuthRequired();
