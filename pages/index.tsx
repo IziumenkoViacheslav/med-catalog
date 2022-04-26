@@ -5,11 +5,10 @@ import Header from '../components/Header';
 import Profile from './profile';
 
 export default function Home() {
-  const { user } = useUser();
 
   return (
     <>
-    <Header user={user}/>
+    <Header/>
       <h1 className='text-3xl font-bold underline'>Hello world!</h1>
       <Profile />
     </>
